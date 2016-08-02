@@ -6,49 +6,68 @@
     <title></title>
     <style media="screen">
         * {
-          font: 12px Arial;
+            font: 12px Arial;
         }
+
         td {
             border: 1px black solid;
         }
+
         th {
-          background: rgb(162, 219, 167);
+            background: rgb(162, 219, 167);
         }
+
         h1 {
-          text-align: center;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
     <h1>Table from JSON</h1>
+    <select id="sel">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    </select>
     <div id="id01"></div>
 
     <script>
-        var xmlhttp = new XMLHttpRequest();
-        var url = "/data.json";
+        var select = document.getElementById('sel');
+        select.addEventListener('change', function() {
 
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                myFunction(xmlhttp.responseText);
-            }
-        }
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
+        for (var j = 0; j < select.options.length; j++) {
+          var option = select.options[j];
+        if(option.selected) {
+          //  console.log( option.value);
+
+          var xmlhttp = new XMLHttpRequest();
+          var url = "/data.json";
+
+          xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                  myFunction(xmlhttp.responseText);
+              }
+          }
+          xmlhttp.open("GET", url, true);
+          xmlhttp.send();
+
 
         function myFunction(response) {
             var arr = JSON.parse(response);
             var i;
             var out = "<table>";
+            var selCell = "<th></th>";
 
-
-            for(var b in arr[0]){ //Заголовки
-              out += "<th>" +
+            for (var b in arr[0]) { //Заголовки
+                out += "<th>" +
                     b + "</th>";
-                      }
-            for (i = 0; i < arr.length; i++) { //Вміст таблиці
-
-
+            };
+            out += selCell; //добавлено пусту ячейку
+            for (i = 0; i < parseInt(select[select.selectedIndex].value); i++) { //Вміст таблиці
                 out += "<tr><td>" +
                     arr[i].ID +
                     "</td><td>" +
@@ -68,10 +87,14 @@
                     "</td><td>" +
                     arr[i].DetailedInfo +
                     "</td><td><button onClick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>Delete me</button></td></td></tr>"; //добавлена кнопка видалення рядку
-            }
+            };
             out += "</table>";
             document.getElementById("id01").innerHTML = out;
-        }
+        };
+      }
+    };
+
+});
 
     </script>
 </body>
