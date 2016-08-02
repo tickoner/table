@@ -42,11 +42,11 @@
             var out = "<table>";
 
 
-            for(var b in arr[0]){
+            for(var b in arr[0]){ //Заголовки
               out += "<th>" +
                     b + "</th>";
                       }
-            for (i = 0; i < arr.length; i++) {
+            for (i = 0; i < arr.length; i++) { //Вміст таблиці
 
 
                 out += "<tr><td>" +
@@ -67,11 +67,12 @@
                     arr[i].ShortInfo +
                     "</td><td>" +
                     arr[i].DetailedInfo +
-                    "</td></tr>";
+                    "</td><td><button onClick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);'>Delete me</button></td></td></tr>"; //добавлена кнопка видалення рядку
             }
             out += "</table>";
             document.getElementById("id01").innerHTML = out;
         }
+
     </script>
 </body>
 
