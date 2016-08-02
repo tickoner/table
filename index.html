@@ -5,8 +5,17 @@
     <meta charset="utf-8">
     <title></title>
     <style media="screen">
+        * {
+          font: 12px Arial;
+        }
         td {
             border: 1px black solid;
+        }
+        th {
+          background: rgb(162, 219, 167);
+        }
+        h1 {
+          text-align: center;
         }
     </style>
 </head>
@@ -32,7 +41,14 @@
             var i;
             var out = "<table>";
 
+
+            for(var b in arr[0]){
+              out += "<th>" +
+                    b + "</th>";
+                      }
             for (i = 0; i < arr.length; i++) {
+
+
                 out += "<tr><td>" +
                     arr[i].ID +
                     "</td><td>" +
