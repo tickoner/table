@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+        td {
+            border: 1px black solid;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Table from JSON</h1>
+    <div id="id01"></div>
+
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        var url = "/data.json";
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                myFunction(xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+        function myFunction(response) {
+            var arr = JSON.parse(response);
+            var i;
+            var out = "<table>";
+
+            for (i = 0; i < arr.length; i++) {
+                out += "<tr><td>" +
+                    arr[i].ID +
+                    "</td><td>" +
+                    arr[i].FullName +
+                    "</td><td>" +
+                    arr[i].Email +
+                    "</td><td>" +
+                    arr[i].BirthDay +
+                    "</td><td>" +
+                    arr[i].Profession +
+                    "</td><td>" +
+                    arr[i].Address +
+                    "</td><td>" +
+                    arr[i].Country +
+                    "</td><td>" +
+                    arr[i].ShortInfo +
+                    "</td><td>" +
+                    arr[i].DetailedInfo +
+                    "</td></tr>";
+            }
+            out += "</table>";
+            document.getElementById("id01").innerHTML = out;
+        }
+    </script>
+</body>
+
+</html>
